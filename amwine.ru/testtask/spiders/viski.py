@@ -1,32 +1,18 @@
-import scrapy
-from datetime import datetime as dt
-from scrapy.spiders import CrawlSpider, Rule
-from scrapy.linkextractors import LinkExtractor
-
-class ViskiSpider(scrapy.Spider):
-    name = 'viski'
-    allowed_domains = ['amwine.ru']
-    start_urls = ['http://https://amwine.ru/catalog/krepkie_napitki/viski//']
-    pages_count = 20
-
-    def start_requests(self):
-        for page in range(1, 1 + self.pages_count):
-            url = f"https://amwine.ru/catalog/krepkie_napitki/vodka/?page={page}"
-            yield scrapy.Request(url, callback=self.parse_pages)
-
-    def parse_pages(self, response, **kwargs):
-        for href in response.css('#section-container > div.catalog-section-itemlist.parent-selector.js-catalog-section-items > div:nth-child(2) >'
-                                 ' div.catalog-list-item__container > div.catalog-list-item__info > a::attr("href")').extract():
-            url = response.urljoin(href)
-            print(f"!!!!!!!!!! ----    {url}")
-            yield scrapy.Request(url, callback=self.parse)
-
-    def parse(self, response, **kwargs):
-        item = {
-        "timestamp":dt.now().timestamp(), # Текущее время в формате timestamp
-        "RPC": response.css('#catalog-element-main > div:nth-child(2) > div > div.col-md-10.col-lg-6 > div > '
-                            'div.catalog-element-info__sub > div.catalog-element-info__article >'
-                            ' span::text').extract_first("").join(c for c in s if c.isdigit()),  # {str} Уникальный код товара
+# import scrapy
+# from datetime import datetime as dt
+# from scrapy_splash import SplashRequest
+#
+# class ViskiSpider(scrapy.Spider):
+#     name = 'viski'
+#     allowed_domains = ['amwine.ru']
+#     start_urls = ['http://https://amwine.ru/catalog/krepkie_napitki/viski//']
+#
+#
+#
+#         "timestamp":dt.now().timestamp()# Текущее время в формате timestamp
+        # "RPC": response.css('catalog-element-main > div:nth-child(2) > div > div.col-md-10.col-lg-6 > div > '
+        #                     'div.catalog-element-info__sub > div.catalog-element-info__article >'
+        #                     ' span::text').extract_first("").join(c for c in s if c.isdigit()),  # {str} Уникальный код товара
         # "url": response.request.url,  # {str} Ссылка на страницу товара
         # "title": "",  # {str} Заголовок/название товара (если в карточке товара указан цвет или объем, необходимо добавить их в title в формате: "{название}, {цвет}")
         # "marketing_tags": [],  # {list of str} Список тэгов, например: ['Популярный', 'Акция', 'Подарок'], если тэг представлен в виде изображения собирать его не нужно
@@ -54,6 +40,6 @@ class ViskiSpider(scrapy.Spider):
         #     "СТРАНА ПРОИЗВОДИТЕЛЬ": "Китай"
         # }
         # "variants": 1,  # {int} Кол-во вариантов у товара в карточке (За вариант считать только цвет или объем/масса. Размер у одежды или обуви варинтами не считаются)
-        }
-        yield item
+        # }
+        # yield item
 

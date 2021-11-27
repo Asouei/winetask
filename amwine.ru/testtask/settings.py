@@ -14,7 +14,7 @@ NEWSPIDER_MODULE = 'testtask.spiders'
 
 #Splash
 
-SPLASH_URL = 'http://192.168.59.103:8050'
+SPLASH_URL = 'http://localhost:8050'
 
 DOWNLOADER_MIDDLEWARES = {
     'scrapy_splash.SplashCookiesMiddleware': 723,
@@ -30,7 +30,7 @@ DUPEFILTER_CLASS = 'scrapy_splash.SplashAwareDupeFilter'
 HTTPCACHE_STORAGE = 'scrapy_splash.SplashAwareFSCacheStorage'
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-USER_AGENT = 'testtask (+http://www.yourdomain.com)'
+USER_AGENT = 'Spiderman'
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = False
